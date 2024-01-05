@@ -17,15 +17,32 @@ fun main(args: Array<String>){
         println("Fail")
     }
 
+    //var studentmarks = 90
 
-    when{
-        x > 100 -> {
-            println("Using when : X is greater than 100")
-        }
-        x > 0 -> {
-            println("Using when : X is greatin than 0")
-        }
+    when (studentmarks){
+        in 90..100 -> { println("Grade A")}
+        in 75..89 -> { println("Grade B")}
+        in 50 .. 74 -> {println("Grade C")}
+        else -> { println("Fail")}
     }
+
+    val today = "Monday"
+
+    when (today){
+        "Monday", "Tuesday", "Wednesday" -> println("Weekday")
+        "Saturday", "Sunday" -> println("Weekend")
+        else -> println("Invalid day")
+    }
+
+    var x : Any
+    x = 10
+    when (x){
+        is Int -> println("Its an Integer")
+        is Float -> println("Its an Float")
+        is String -> println("Its an String")
+        is Boolean -> println("Its an Boolean")
+    }
+
 }
 
 
