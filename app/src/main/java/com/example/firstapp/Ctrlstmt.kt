@@ -1,7 +1,7 @@
 package com.example.firstapp
 
 fun main(args: Array<String>){
-    var x : Int = 10
+    //var x : Int = 10
     var studentmarks : Int = 75
     var isExcellent = studentmarks > 90
     var isGood = studentmarks in 75..90
