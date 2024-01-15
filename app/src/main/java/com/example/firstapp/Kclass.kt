@@ -9,8 +9,9 @@ fun main(){
     kc = Kclass(10)
     kc = Kclass(10,20)
 
-    var kcc = Kclasswithcons(10)
+    var kcc = Kclasswithcons(10, 20)
     println(kcc.reta())
+    println(kcc.a)
 }
 
 /**
@@ -19,6 +20,12 @@ fun main(){
  * class test{  }
  * class test(){ }
  * class test(var1: type, var2:type) { }
+ *
+ * // If the constructor has annotations or visibility modifiers,
+ * // the constructor keyword is required and the modifiers go before it:
+ *
+ * class test public @Inject constructor(name: String) { /*...*/ }
+ *
  * class test{
  *      constructor() { }
  *      constructor(var1: type){ }
@@ -30,6 +37,8 @@ fun main(){
 class Kclass {
     var a : Int = 10
 
+    // You can have one or many init blocks
+    // If you have multiple init blocks all will be executed in the order defined
     init {
         println("This always gets executed on object creation")
     }
@@ -54,9 +63,10 @@ class Kclass {
     }
 }
 
-class Kclasswithcons(var a:Int){
+class Kclasswithcons (var a : Int){
 
     // Secondary constructor
+    //constructor(x: Int, y : Int) {
     constructor(x: Int, y : Int) : this(10) {
         val sum = x + y
         println("Sum is $sum")
@@ -67,6 +77,6 @@ class Kclasswithcons(var a:Int){
     }
 
     fun reta() : Int {
-        return a
+        return 0
     }
 }
