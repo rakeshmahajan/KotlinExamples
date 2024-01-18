@@ -4,10 +4,16 @@ import java.time.LocalDate
 import java.time.Period
 
 fun main(){
+    var per = Person("John", LocalDate.of(2000,1,10), "Male",
+        "UNQ1234")
     var emp = Employee("John", LocalDate.of(2000,1,10), "Male",
-                    "UNQ1234", 1234, "Engineer", "Mumbai")
+                    "UNQ5678", 1234, "Engineer", "Mumbai")
 
-    println(emp.getAge())
+    var mgr = Manager("John", LocalDate.of(2000,1,10), "Male",
+        "UNQ9999", 5678, "Engineer", "Mumbai")
+    mgr.whoami()
+
+    //println(emp.getAge())
 
 }
 
@@ -26,7 +32,8 @@ open class Person(private var name: String, private var dob: LocalDate,
 
     init {
         personList.set(uniqueid, this)
-        println("Count of personlist ${personList.size}")
+        println("Per : Count of Person list ${personList}")
+        println("Per : Count of Person list ${personList.size}")
     }
 
     fun getName() = name
@@ -36,19 +43,39 @@ open class Person(private var name: String, private var dob: LocalDate,
     fun getAge() : Int{
         return Period.between(dob, LocalDate.now()).years
     }
+    open fun whoami() {
+        println("I am Person ... ! ")
+    }
 }
-class Employee(name: String, dob: LocalDate, gender:String, uniqueid: String,
-               var empid: Int, var designation: String, var worklocation: String)
+
+open class Employee(name: String, dob: LocalDate, gender:String, uniqueid: String,
+               empid: Int, designation: String, worklocation: String)
     : Person(name, dob, gender, uniqueid){
 
-        constructor(uqid : String) : this(){
-            var p = Person.getAllPersons().get(uqid)
-            if (p != null) {
-                Employee(p.getName(), p.getDoB(), p.getGender(), uqid, 1234, "Manager", "Ahd")
-            }
-        }
+
+    companion object{
+        var empList : HashMap<Int, Employee> = HashMap<Int,Employee>()
+        fun getAllEmployees() = empList
+    }
+
+    init {
+        empList.set(empid, this)
+        println("Emp : Printing person list : ${personList}")
+        println("Emp : Printing Employee list : ${empList}")
+        println("Emp : Count of Person list ${personList.size}")
+        println("Emp : Count of Employee list ${empList.size}")
+    }
+
+    override fun whoami() {
+        println("I am Employee ... ! ")
+    }
 }
 
-class Manager(){
+class Manager(name: String, dob: LocalDate, gender:String, uniqueid: String,
+              var empid: Int, var designation: String, var worklocation: String)
+    : Employee(name, dob, gender, uniqueid, empid, designation, worklocation) {
 
+    override fun whoami() {
+        println("I am Manager ... ! ")
+    }
 }
